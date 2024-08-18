@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Dork Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212; /* Dark background for movie-like aesthetic */
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+        }
+        .search-container {
+            text-align: center;
+        }
+        .search-input {
+            width: 100%;
+            max-width: 640px;
+            padding: 16px;
+            font-size: 24px;
+            border: 1px solid #333;
+            border-radius: 24px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            background-color: #1c1c1c;
+            color: #e0e0e0;
+        }
+        .search-button {
+            margin-top: 16px;
+            padding: 18px 36px; /* Slightly larger button */
+            font-size: 20px; /* Slightly larger text */
+            border: none;
+            border-radius: 24px;
+            background-color: #1a73e8;
+            color: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .search-button:hover {
+            background-color: #1669c1;
+        }
+        .clear-button, .paste-button {
+            margin-top: 31px; /* Moved 15px down */
+            padding: 13px 26px; /* 30% larger button */
+            font-size: 18px; /* 30% larger text */
+            border: 1px solid #333;
+            border-radius: 24px;
+            background-color: #1c1c1c;
+            color: #1a73e8;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .clear-button:hover, .paste-button:hover {
+            background-color: #333;
+        }
+        .results {
+            margin-top: 40px;
+            width: 100%;
+            max-width: 640px;
+            text-align: left;
+        }
+        .result-item {
+            margin-bottom: 20px;
+            background-color: #1c1c1c;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            font-size: 16px;
+        }
+        .result-item a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .result-item a:hover {
+            text-decoration: underline;
+        }
+        .result-url {
+            font-size: 14px;
+            color: #70757a;
+            margin: 5px 0;
+        }
+        .result-actions {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .result-actions button {
+            margin-left: 10px;
+            padding: 6px 12px;
+            font-size: 14px;
+            background-color: #333;
+            color: #1a73e8;
+            border: 1px solid #333;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .result-actions button:hover {
+            background-color: #555;
+        }
+        .no-more-results {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="domainInput" class="search-input" placeholder="Enter domain or text..." onkeydown="handleKeyDown(event)">
+        <button class="search-button" onclick="performSearch()">Search</button>
+        <div>
+            <button class="clear-button" onclick="clearSearch()">Clear</button>
+            <button class="paste-button" onclick="pasteFromClipboard()">Paste</button>
+        </div>
+    </div>
+    <div id="results" class="results"></div>
+    <div id="noMoreResults" class="no-more-results" style="display: none;">No more results available.</div>
+
+    <script>
+        function performSearch() {
+            const input = document.getElementById('domainInput').value;
+            let query;
+
+            if (input.includes('.') || input.includes('/')) {
+                // Assuming input is a domain or URL
+                let domain = input.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0];
+                query = `site:${domain} "responsible disclosure" | "vulnerability disclosure policy" | "bug bounty" | "vulnerability report" | "security vulnerability" | "Vulnerability Disclosure" | inurl:security.txt | "vulnerability report" | "coordinated vulnerability disclosure" | "report-a-bug" | "report a bug" | "report a vulnerability"`;
+            } else {
+                // Assuming input is a text or company name
+                query = `${input} "responsible disclosure" | "vulnerability disclosure policy" | "bug bounty" | "vulnerability report" | "security vulnerability" | "Vulnerability Disclosure" | inurl:security.txt | "vulnerability report" | "coordinated vulnerability disclosure" | "report-a-bug" | "report a bug" | "report a vulnerability"`;
+            }
+            
+            const encodedQuery = encodeURIComponent(query);
+            window.open(`https://www.google.com/search?q=${encodedQuery}`, '_blank');
+        }
+
+        function clearSearch() {
+            document.getElementById('domainInput').value = '';
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('noMoreResults').style.display = 'none';
+        }
+
+        function pasteFromClipboard() {
+            navigator.clipboard.readText().then(text => {
+                document.getElementById('domainInput').value = text;
+            }).catch(err => console.error('Failed to read clipboard contents: ', err));
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        }
+    </script>
+</body>
+</html>
