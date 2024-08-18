@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Dork Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: auto;
+        }
+        .search-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #1c1c1c;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .search-input {
+            width: 60%;
+            padding: 15px;
+            font-size: 18px;
+            border: 1px solid #444;
+            border-radius: 5px 0 0 5px;
+            background-color: #333;
+            color: #fff;
+        }
+        .search-button {
+            padding: 15px 25px;
+            font-size: 20px;
+            border: 1px solid #444;
+            border-radius: 0 5px 5px 0;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #0056b3;
+        }
+        .clear-button, .paste-button {
+            padding: 15px 25px;
+            font-size: 20px;
+            border: 1px solid #444;
+            background-color: #ff3b3b;
+            color: #fff;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .clear-button:hover, .paste-button:hover {
+            background-color: #ff1c1c;
+        }
+        .results {
+            margin-top: 100px;
+            width: 70%;
+        }
+        .result-item {
+            text-align: left;
+            margin-bottom: 20px;
+            background-color: #1c1c1c;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-size: 115%;
+        }
+        .result-item a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 23px;
+        }
+        .result-item a:hover {
+            text-decoration: underline;
+        }
+        .result-url {
+            font-size: 18px;
+            color: #aaaaaa;
+            margin: 5px 0;
+        }
+        .result-actions {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .result-actions button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .result-actions button:hover {
+            background-color: #555;
+        }
+        .load-more-results, .google-search-button {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            padding: 10px 17.5px;
+            font-size: 14px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .google-search-button {
+            bottom: calc(20px + 1.5in); /* Adjust position as needed */
+        }
+        .load-more-results:hover, .google-search-button:hover {
+            background-color: #0056b3;
+        }
+        .no-more-results {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+            color: #ff3b3b;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-bar">
+        <button class="clear-button" onclick="clearSearch()">Clear</button>
+        <button class="paste-button" onclick="pasteFromClipboard()">Paste</button>
+        <input type="text" id="domainInput" class="search-input" placeholder="Enter domain or text..." onkeydown="handleKeyDown(event)">
+        <button class="search-button" onclick="performSearch()">Search</button>
+    </div>
+    <div id="results" class="results"></div>
+    <button id="googleSearchButton" class="google-search-button" style="display: none;" onclick="openGoogleSearch()">Google Search</button>
+    <button id="loadMoreResults" class="load-more-results" style="display: none;" onclick="loadMoreResults()">Load More Results</button>
+    <div id="noMoreResults" class="no-more-results" style="display: none;">No more results available.</div>
+
+    <script>
+        const apiKey = 'AIzaSyDfmTSUOT0_KqKJApYAULTXXeC0p3KjVQM';
+        const searchEngineId = '31e885513a6654f39';
+        let startIndex = 1;
+        let totalResults = 0;
+        let currentQuery = '';
+
+        function performSearch() {
+            const input = document.getElementById('domainInput').value;
+            let query;
+
+            if (input.includes('.') || input.includes('/')) {
+                // Assuming input is a domain or URL
+                let domain = input.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0];
+                query = `site:${domain} "responsible disclosure" | "vulnerability disclosure policy" | "bug bounty" | "vulnerability report" | "security vulnerability" | "Vulnerability Disclosure" | inurl:security.txt | "vulnerability report" | "bugbounty" | "responsibledisclosure" | "report-a-bug" | "report a bug" | "report a vulnerability"`;
+            } else {
+                // Assuming input is a text or company name
+                query = `${input} "responsible disclosure" | "vulnerability disclosure policy" | "bug bounty" | "vulnerability report" | "security vulnerability" | "Vulnerability Disclosure" | inurl:security.txt | "vulnerability report" | "bugbounty" | "responsibledisclosure" | "report-a-bug" | "report a bug" | "report a vulnerability"`;
+            }
+            
+            currentQuery = query;
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+            startIndex = 1;
+            totalResults = 0;
+            
+            fetchResults(query);
+            document.getElementById('googleSearchButton').style.display = 'block';
+        }
+
+        function fetchResults(query) {
+            fetch(`https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(query)}&key=${apiKey}&cx=${searchEngineId}&num=10&start=${startIndex}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.items) {
+                        totalResults += data.items.length;
+                        data.items.forEach(item => {
+                            const resultItem = document.createElement('div');
+                            resultItem.className = 'result-item';
+                            resultItem.innerHTML = `
+                                <a href="${item.link}" target="_blank">${item.title}</a>
+                                <p class="result-url">${item.link}
+                                    <span class="result-actions">
+                                        <button onclick="copyToClipboard('${item.link}', this)">Copy</button>
+                                        <button onclick="window.open('${item.link}', '_blank')">Open</button>
+                                    </span>
+                                </p>
+                                <p>${item.snippet}</p>
+                            `;
+                            document.getElementById('results').appendChild(resultItem);
+                        });
+
+                        if (data.queries.nextPage) {
+                            startIndex = data.queries.nextPage[0].startIndex;
+                            document.getElementById('loadMoreResults').style.display = 'block';
+                            document.getElementById('noMoreResults').style.display = 'none';
+                        } else {
+                            document.getElementById('loadMoreResults').style.display = 'none';
+                            document.getElementById('noMoreResults').style.display = 'block';
+                        }
+                    } else {
+                        document.getElementById('results').innerHTML = '<p>No results found.</p>';
+                        document.getElementById('loadMoreResults').style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error fetching search results:', error));
+        }
+
+        function loadMoreResults() {
+            fetchResults(currentQuery);
+        }
+
+        function clearSearch() {
+            document.getElementById('domainInput').value = '';
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('loadMoreResults').style.display = 'none';
+            document.getElementById('noMoreResults').style.display = 'none';
+            document.getElementById('googleSearchButton').style.display = 'none';
+        }
+
+        function pasteFromClipboard() {
+            navigator.clipboard.readText().then(text => {
+                document.getElementById('domainInput').value = text;
+            }).catch(err => console.error('Failed to read clipboard contents: ', err));
+        }
+
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                button.style.backgroundColor = '#28a745'; // Green color after copy
+            }).catch(err => console.error('Failed to copy text: ', err));
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        }
+
+        function openGoogleSearch() {
+            const query = encodeURIComponent(currentQuery);
+            window.open(`https://www.google.com/search?q=${query}`, '_blank');
+        }
+    </script>
+</body>
+</html>
