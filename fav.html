@@ -75,13 +75,6 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             font-size: 115%;
-            display: flex;
-            align-items: center;
-        }
-        .result-item img {
-            width: 16px;
-            height: 16px;
-            margin-right: 10px;
         }
         .result-item a {
             color: #007bff;
@@ -153,8 +146,8 @@
     <div id="noMoreResults" class="no-more-results" style="display: none;">No more results available.</div>
 
     <script>
-        const apiKey = 'AIzaSyDM7A_HQS5vof5Bz6PCumn5YTl38Qnhnhk';
-        const searchEngineId = 'e1c3a2dc4ec764b1e';
+        const apiKey = 'AIzaSyBQns5PFOrrTZv4Scy40nsHNdF572oyrxA';
+        const searchEngineId = 'f02cf4a5ace4c451a';
         let startIndex = 1;
         let totalResults = 0;
         let currentQuery = '';
@@ -191,9 +184,7 @@
                         data.items.forEach(item => {
                             const resultItem = document.createElement('div');
                             resultItem.className = 'result-item';
-                            const domain = new URL(item.link).hostname;
                             resultItem.innerHTML = `
-                                <img src="https://www.google.com/s2/favicons?domain=${domain}" alt="favicon">
                                 <a href="${item.link}" target="_blank">${item.title}</a>
                                 <p class="result-url">${item.link}
                                     <span class="result-actions">
