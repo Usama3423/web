@@ -21,27 +21,29 @@
         .search-container {
             text-align: center;
             position: absolute;
-            top: 2.5in; /* Moved down by 2.5 inches */
+            top: 10%; /* Adjusted for better positioning on smaller screens */
             left: 50%;
             transform: translateX(-50%);
+            width: 90%; /* Responsive width */
         }
         .search-input {
             width: 100%;
-            max-width: 864px; /* Increased width */
-            padding: 22px;
-            font-size: 32px; /* Increased font size */
+            max-width: 100%; /* Full width with max constraints */
+            padding: 1.5em;
+            font-size: 1.5em; /* Scaled down font size */
             border: 1px solid #333;
-            border-radius: 32px;
+            border-radius: 0.5em;
             box-shadow: 0 1px 2px rgba(0,0,0,0.5);
             background-color: #1c1c1c;
             color: #e0e0e0;
+            box-sizing: border-box; /* Ensure padding does not affect width */
         }
         .search-button {
-            margin-top: 22px; /* Increased margin */
-            padding: 24px 48px; /* Increased padding */
-            font-size: 27px; /* Increased font size */
+            margin-top: 1.5em;
+            padding: 1em 2em; /* Scaled down padding */
+            font-size: 1.2em; /* Scaled down font size */
             border: none;
-            border-radius: 32px;
+            border-radius: 0.5em;
             background-color: #1a73e8;
             color: #ffffff;
             cursor: pointer;
@@ -51,11 +53,11 @@
             background-color: #1669c1;
         }
         .clear-button, .paste-button {
-            margin-top: 42px; /* Increased margin to move buttons down */
-            padding: 17px 34px; /* Increased padding */
-            font-size: 24px; /* Increased font size */
+            margin-top: 1em;
+            padding: 0.8em 1.6em; /* Scaled down padding */
+            font-size: 1em; /* Scaled down font size */
             border: 1px solid #333;
-            border-radius: 32px;
+            border-radius: 0.5em;
             background-color: #1c1c1c;
             color: #1a73e8;
             cursor: pointer;
@@ -65,54 +67,62 @@
             background-color: #333;
         }
         .results {
-            margin-top: 60px;
+            margin-top: 2em;
             width: 100%;
-            max-width: 864px; /* Increased width */
+            max-width: 100%; /* Full width with max constraints */
             text-align: left;
         }
         .result-item {
-            margin-bottom: 27px; /* Increased margin */
+            margin-bottom: 1.5em;
             background-color: #1c1c1c;
-            padding: 22px;
-            border-radius: 11px;
+            padding: 1em;
+            border-radius: 0.5em;
             box-shadow: 0 1px 2px rgba(0,0,0,0.5);
-            font-size: 22px; /* Increased font size */
+            font-size: 1.2em; /* Scaled down font size */
         }
         .result-item a {
             color: #1a73e8;
             text-decoration: none;
-            font-size: 24px; /* Increased font size */
+            font-size: 1.2em; /* Scaled down font size */
         }
         .result-item a:hover {
             text-decoration: underline;
         }
         .result-url {
-            font-size: 19px; /* Increased font size */
+            font-size: 1em; /* Scaled down font size */
             color: #70757a;
-            margin: 10px 0; /* Increased margin */
+            margin: 0.5em 0; /* Scaled down margin */
         }
         .result-actions {
             display: inline-flex;
             align-items: center;
-            margin-top: 15px; /* Increased margin */
+            margin-top: 0.8em; /* Scaled down margin */
         }
         .result-actions button {
-            margin-left: 13px; /* Increased margin */
-            padding: 8px 16px; /* Increased padding */
-            font-size: 19px; /* Increased font size */
+            margin-left: 0.8em; /* Scaled down margin */
+            padding: 0.5em 1em; /* Scaled down padding */
+            font-size: 1em; /* Scaled down font size */
             background-color: #333;
             color: #1a73e8;
             border: 1px solid #333;
-            border-radius: 6px;
+            border-radius: 0.3em;
             cursor: pointer;
         }
         .result-actions button:hover {
             background-color: #555;
         }
         .no-more-results {
-            margin-top: 30px;
-            font-size: 27px; /* Increased font size */
+            margin-top: 2em;
+            font-size: 1.5em; /* Scaled down font size */
             color: #e74c3c;
+        }
+
+        /* Media Query for Small Screens */
+        @media (max-width: 600px) {
+            .search-input, .search-button, .clear-button, .paste-button {
+                width: 100%;
+                font-size: 1em; /* Further scaled font size for small screens */
+            }
         }
     </style>
 </head>
