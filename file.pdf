@@ -1,0 +1,17 @@
+from fpdf import FPDF
+
+# Create instance of FPDF class
+pdf = FPDF()
+
+# Add a page
+pdf.add_page()
+
+# Set title
+pdf.set_font("Arial", size = 12)
+pdf.cell(200, 10, txt = "PDF.js Viewer < 2.0.2 - Contributor+ Stored Cross-Site Scripting", ln = True, align = 'C')
+
+# Add description
+pdf.ln(10)
+pdf.set_font("Arial", size = 10)
+description = """Description:
+The PDF.js Viewer plugin for WordPress, prior to version 2.0.2,
