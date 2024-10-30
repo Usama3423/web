@@ -1,0 +1,29 @@
+Bug Title: Improper restriction on authentication endpoint on sensitive action could lead account takeover.
+Weakness: Improper restriction on authentication endpoint attempts (Sensitive action).
+Vulnerable Domain: https://vulnsite.com/
+
+Hello Web Security Team,
+
+I am writing to report a security vulnerability identified on your website, https://vulnsite.com, specifically within the password change functionality found under the "General Settings" section in the user account profile. This endpoint lacks rate limiting, allowing an attacker to repeatedly test passwords on the "current password" field without any restriction. This absence of rate limiting could facilitate brute-force attacks, enabling an attacker to compromise user accounts.
+
+Description:
+During testing, I found that the password change endpoint did not enforce any rate-limiting controls on the "current password" field. An attacker could abuse this vulnerability to submit numerous password attempts without being blocked, potentially discovering the correct current password through brute force. After testing over 3000 requests with incorrect passwords, no rate limits were applied, and no restrictions were encountered. This indicates a lack of effective rate limiting, which is a standard security measure for preventing brute-force attacks on sensitive endpoints.
+
+Steps to Reproduce:
+1) Log in to https://vulnsite.com and navigate to "Account Profile" under "General Settings" where the password change option is available.
+2) In the "Change Password" form, enter an incorrect current password and set any desired new password.
+3) Intercept the request using Burp Suite (or a similar tool) and send it to Intruder.
+4) Set the payload marker on the "current password" field and add a payload list containing multiple incorrect passwords.
+5) Add the correct password somewhere in the list (e.g., as the 1001st payload).
+6) Initiate the attack and observe that no HTTP Requests are getting blocked, confirming that no rate limiting is applied to this endpoint and Attacker can find the correct password by filtering request response http status "HTTP/2 204 No Content"
+screenshot_image.png
+
+Impact:
+This vulnerability allows attackers to brute-force the current password field without restriction, potentially gaining unauthorized access to user accounts. If the correct current password is discovered through brute force, an attacker could then change the password, effectively taking over the account. This could lead to a complete compromise of the user's account, exposing sensitive information and impacting the security of the authentication process.
+
+Fix Behavior:
+For security, the system should return an HTTP 429 status code after a limited number of attempts (e.g., 7-10 failed requests). This would prevent attackers from launching brute-force attacks on the current password field within the password change functionality.
+
+Sincerely,  
+Mr. Dott  
+Bug Bounty Hunter.
